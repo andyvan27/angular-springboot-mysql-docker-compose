@@ -6,7 +6,6 @@ import com.example.emp.repo.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -22,7 +21,7 @@ public class EmployeeService {
         return empRepo.save(employee);
     }
 
-    public List<Employee> findAllEmployees(){
+    public Iterable<Employee> findAllEmployees(){
         return empRepo.findAll();
     }
 
@@ -31,11 +30,11 @@ public class EmployeeService {
     }
 
     public Employee findEmployee(Long id) {
-        return empRepo.findEmployeeById(id).orElseThrow(
+        return empRepo.findById(id).orElseThrow(
                 ()->new EmployeeNotFoundException("Employee by id " + id + " was not found"));
     }
 
     public void deleteEmployee(Long id) {
-        empRepo.deleteEmployeeById(id);
+        empRepo.deleteById(id);
     }
 }

@@ -5,8 +5,6 @@ import com.example.emp.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 @CrossOrigin(origins = {"http://localhost:4200", "http://host.docker.internal:4200"})
 @RestController
 @RequestMapping("/employee")
@@ -18,8 +16,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Employee>> getAllEmployees() {
-        List<Employee> employees = empService.findAllEmployees();
+    public ResponseEntity<Iterable<Employee>> getAllEmployees() {
+        Iterable<Employee> employees = empService.findAllEmployees();
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 

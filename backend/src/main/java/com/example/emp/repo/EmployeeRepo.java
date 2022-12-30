@@ -1,11 +1,6 @@
 package com.example.emp.repo;
 
 import com.example.emp.model.Employee;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.Optional;
-
-public interface EmployeeRepo extends JpaRepository<Employee, Long> {
-    Optional<Employee> findEmployeeById(Long id);
-    void deleteEmployeeById(Long id);
-}
+public interface EmployeeRepo extends CrudRepository<Employee, Long> {}
