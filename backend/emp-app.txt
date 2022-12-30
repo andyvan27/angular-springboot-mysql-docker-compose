@@ -1,0 +1,81 @@
+MySql
+
+mysql -uroot -p
+password found in docker log: [Entrypoint] GENERATED ROOT PASSWORD: zM+BL;YfjJ;58N6so#Ep/??9253.W4KN
+ALTER USER 'root'@'localhost' IDENTIFIED BY '[newpassword]';
+
+docker run -p 13306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=Password -d mysql:latest
+docker exec -ti mysql
+show databases
+create database employeemanager;
+
+{
+    "email": "andy@gmail.com",
+    "imageUrl": "https://bootdey.com/img/Content/avatar/avatar1.png",
+    "jobTitle": "Dev",
+    "name": "Andy",
+    "phone": "0401 398 957"
+}
+
+{
+    "email": "ryan@gmail.com",
+    "imageUrl": "https://bootdey.com/img/Content/avatar/avatar2.png",
+    "jobTitle": "Junior",
+    "name": "Ryan",
+    "phone": "0411 398 957"
+}
+
+{
+    "email": "jess@gmail.com",
+    "imageUrl": "https://bootdey.com/img/Content/avatar/avatar3.png",
+    "jobTitle": "QA",
+    "name": "Jess",
+    "phone": "0413 398 957"
+}
+
+{
+  "email": "louis@gmail.com",
+  "imageUrl": "https://bootdey.com/img/Content/avatar/avatar4.png",
+  "jobTitle": "Sale",
+  "name": "Louis",
+  "phone": "0411 398 957"
+}
+
+
+
+use employeemanager
+show tables
+
+http :8080/employee/all
+http POST :8080/employee/add < data.json
+http PUT :8080/employee/update < data.json
+
+Angular Cli:
+npm install -g @angular/cli
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
+Update nodejs: https://nodejs.org/
+
+ng new employeemanagerapp
+cd employeemanagerapp
+ng serve
+ng generate service employee --skip-tests=true
+ng g environments
+
+Compose:
+docker compose up -d
+docker compose down
+docker compose build backend
+docker compose build frontend
+docker exec -it mysql mysql --user=root --password=Password
+
+Docker:
+docker build -t employeemanager:latest .
+docker run -p 8080:8080 -p 5005:5005 -e JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005" employeemanager
+
+docker image prune
+docker volume prune
+docker network prune
+docker system prune
+
+Maven:
+mvn -f pom.xml -DskipTests clean package
