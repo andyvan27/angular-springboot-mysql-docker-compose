@@ -13,11 +13,13 @@
  
  It will build all conatiner images and create/start their containers.
  
- To shutdown:
+ # To shutdown
  
  docker compose down
  
- To try the fontend app go to http://localhost:4200/
+ # To try the font end app 
+
+go to http://localhost:4200/
  
  For the first run, may be the MySql container is not ready prior to the backend trying to connect to. In this case, please do:
  
@@ -30,13 +32,13 @@
  http://localhost:8080/employee/add
  
  with a json in the body like:
- 
- {
+
+{
   "email": "jonh.smith@gmail.com",
   "imageUrl": "https://bootdey.com/img/Content/avatar/avatar4.png",
   "jobTitle": "Sale",
   "name": "John Smith",
   "phone": "0411 333 777"
- }
+}
  
-Add couple of employees in and you will see them on the home page. (avatar<i>.png should be available for different images)
+Add a couple of employees in, you will see them on the home page. (avatar<i>.png should be available for different images)
