@@ -5,7 +5,7 @@
  
  Open your command prompt and execute the following to clone this app to your local directory:
  
- https://github.com/andyvan27/angular-springboot-mysql-docker-compose.git
+ git clone https://github.com/andyvan27/angular-springboot-mysql-docker-compose.git
  
  Ensure your local Docker engine running with Docker Compose enabled in the settings. Then run this command:
  
