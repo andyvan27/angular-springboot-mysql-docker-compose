@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  frontend:
+    image: andyvan27/emp-app-frontend:v1.0.0
+    environment:
+      - BACKEND_URL=https://anback.azurewebsites.net
+    ports:
+      - "80:80"
+    restart: always

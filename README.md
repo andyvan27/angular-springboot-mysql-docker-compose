@@ -16,7 +16,7 @@ It will build all container images and create/start their containers.
 `docker compose down`
  
 ### Font end app 
-`http://localhost:4200/`
+`http://localhost/`
 
 ### Back end app
 `http://localhost:8080/employee/<all><add><update><delete>/<id>`
@@ -38,3 +38,7 @@ Many thanks to Nelson and Junior in this video: https://www.youtube.com/watch?v=
 - Upgraded to Java 17, SpringBoot 3 and Angular 15 and their alpine images
 - Optionally passed configuration environment variables into the app when running in containers, but not when running locally, without code changes
 - Handled CORS from Controller instead of main class
+
+### Deploy to Azure Web App for Containers
+- `docker-compose-backend.yml`
+- `docker-compose-frontend.yml`

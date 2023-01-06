@@ -5,7 +5,13 @@ import com.example.emp.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin(origins = {"http://localhost:4200", "http://host.docker.internal:4200"})
+@CrossOrigin(origins = {
+    "http://localhost:4200", 
+    "http://host.docker.internal:4200",
+    "http://localhost", 
+    "http://host.docker.internal", 
+    "https://anfront.azurewebsites.net/"
+})
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {

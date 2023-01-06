@@ -17,7 +17,9 @@ export class AppComponent implements OnInit {
   constructor(private employeeService: EmployeeService){}
 
   ngOnInit() {
-    this.getEmployees();
+    this.employeeService.getConfigJson().subscribe((any) => {
+      this.getEmployees();
+    });
   }
 
   public getEmployees(): void {

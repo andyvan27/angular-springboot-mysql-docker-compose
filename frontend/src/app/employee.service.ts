@@ -2,15 +2,23 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Employee } from './employee';
-import { environment } from '../environments/environment';
+import config from '../assets/config.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  private backendUrl = environment.backendUrl;
+  private backendUrl = config.backendUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.getConfigJson().subscribe((configJson) => {
+      this.backendUrl = configJson.backendUrl;
+    });
+  }
+
+  public getConfigJson(): Observable<any> {
+    return this.http.get('./assets/config.json');
+  }
 
   public getEmployees():Observable<Employee[]> {
     return this.http.get<Employee[]>(`${this.backendUrl}/employee/all`);

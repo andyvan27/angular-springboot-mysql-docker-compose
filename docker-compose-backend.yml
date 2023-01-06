@@ -2,23 +2,15 @@ version: "3.3"
 services:
   db:
     image: "mysql:5.7"
-    container_name: "db"
     environment:
       - MYSQL_USER=empdbuser
       - MYSQL_PASSWORD=empdbuserpassword
       - MYSQL_ROOT_PASSWORD=empdbrootpassword
-      - MYSQL_DATABASE=empdb
-    ports:
-      - "3306:3306"
-    networks:
-      - vnet
+      - MYSQL_DATABASE=empdb    
     volumes:
       - db-vol:/var/lib/mysql
+    restart: always
   backend:
-    depends_on:
-      - db
-    build: ./backend
-    container_name: backend
     image: andyvan27/emp-app-backend:v1.0.0
     environment:
       - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
@@ -28,27 +20,8 @@ services:
       - DB_USER=empdbuser
       - DB_PASSWORD=empdbuserpassword
     ports:
-      - "8080:8080"
-      - "5005:5005"
-    networks:
-      - vnet
-  frontend:
-    depends_on:
-      - db
-      - backend
-    build: ./frontend
-    container_name: frontend
-    image: andyvan27/emp-app-frontend:v1.0.0
-    environment:
-      - BACKEND_URL=http://localhost:8080
-    ports:
-      - "80:80"
-    networks:
-      - vnet
-
-networks:
-  vnet:
-    name: vnet
+      - "80:8080"
+    restart: always    
 
 volumes:
   db-vol:
