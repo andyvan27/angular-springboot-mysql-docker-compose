@@ -1,5 +1,5 @@
 # angular-springboot-mysql-docker-compose
-Sample of AngularJS, SpringBoot and MySql running on Docker Compose
+Sample of AngularJS, SpringBoot and MySql running on Docker Compose, Azure Web App for Containers and Azure Kubernetes Service.
  
 ### Run 
 Open your command prompt and execute the following to clone this app to your local directory:
@@ -28,8 +28,26 @@ docker compose stop
 docker compose start
 ```
 
-### Reference
+### Deploy to Azure Web App for Containers
+- `docker-compose-backend.yml`
+- `docker-compose-frontend.yml`
+
+### Deploy to local Kubernetes
+- `kubectl apply -f emp-app-kube.yml`
+
+### Deploy to AKS
+- Create resource group and AKS cluster
+- Sign in to Azure from command prompt
+- `az aks get-credentials --resource-group <resourceGroupname> --name <AKS cluster name>`
+- `kubectl apply -f emp-app-aks-backend.yml`
+- `kubectl get service backend --watch` and note down the external ip address of the back end
+- Modify `emp-app-aks-frontend.yml` to have the right ip address of the back end (At BACKEND_URL)
+- `kubectl apply -f emp-app-aks-frontend.yml`
+
+### References
 Many thanks to Nelson and Junior in this video: https://www.youtube.com/watch?v=Gx4iBLKLVHk&list=PLBvjNj5-9WtGnqj2G4T7uH07-JeRST2b8&index=3. Please give all credits to them.
+https://learn.microsoft.com/en-us/azure/app-service/tutorial-multi-container-app
+https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli
 
 ### Differences from the video
 - Used `CrudRepository` instead of `JpaRepository`
@@ -38,7 +56,3 @@ Many thanks to Nelson and Junior in this video: https://www.youtube.com/watch?v=
 - Upgraded to Java 17, SpringBoot 3 and Angular 15 and their alpine images
 - Optionally passed configuration environment variables into the app when running in containers, but not when running locally, without code changes
 - Handled CORS from Controller instead of main class
-
-### Deploy to Azure Web App for Containers
-- `docker-compose-backend.yml`
-- `docker-compose-frontend.yml`

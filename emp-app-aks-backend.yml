@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: db
+        image: mysql:5.7
+        env:
+        - name: MYSQL_USER
+          value: "empdbuser"
+        - name: MYSQL_PASSWORD
+          value: "empdbuserpassword"
+        - name: MYSQL_ROOT_PASSWORD
+          value: "empdbrootpassword"
+        - name: MYSQL_DATABASE
+          value: "empdb"
+        ports:
+        - containerPort: 3306
+          name: mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: backend
+        image: andyvan27/emp-app-backend:v1.0.0
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+        env:
+        - name: DB_SERVER
+          value: "db"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_NAME
+          value: "empdb"
+        - name: DB_USER
+          value: "empdbuser"
+        - name: DB_PASSWORD
+          value: "empdbuserpassword"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+  selector:
+    app: backend
