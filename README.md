@@ -29,8 +29,12 @@ docker compose start
 ```
 
 ### Deploy to Azure Web App for Containers
-- `docker-compose-backend.yml`
-- `docker-compose-frontend.yml`
+- Create 2 Web App for Containers in Azzure
+- Provide the Docker Compose files when asked by the UI or arguments if use az cli:
+```
+docker-compose-backend.yml
+docker-compose-frontend.yml
+```
 
 ### Deploy to local Kubernetes
 - `kubectl apply -f emp-app-kube.yml`
