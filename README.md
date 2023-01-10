@@ -45,9 +45,9 @@ docker compose start
 - `kubectl apply -f emp-app-aks-frontend.yml`
 
 ### References
-Many thanks to Nelson and Junior in this video: https://www.youtube.com/watch?v=Gx4iBLKLVHk&list=PLBvjNj5-9WtGnqj2G4T7uH07-JeRST2b8&index=3. Please give all credits to them.
-https://learn.microsoft.com/en-us/azure/app-service/tutorial-multi-container-app
-https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli
+- Many thanks to Nelson and Junior in this video: https://www.youtube.com/watch?v=Gx4iBLKLVHk&list=PLBvjNj5-9WtGnqj2G4T7uH07-JeRST2b8&index=3. Please give all credits to them.
+- https://learn.microsoft.com/en-us/azure/app-service/tutorial-multi-container-app
+- https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli
 
 ### Differences from the video
 - Used `CrudRepository` instead of `JpaRepository`
