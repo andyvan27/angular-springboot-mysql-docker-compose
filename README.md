@@ -48,10 +48,14 @@ docker-compose-frontend.yml
 - Modify `emp-app-aks-frontend.yml` to have the right ip address of the back end (At BACKEND_URL)
 - `kubectl apply -f emp-app-aks-frontend.yml`
 
+### Deploy to local Kubernetes with ingress-nginx installed
+- `kubectl apply -f emp-app-kube-local-ingress.yml`
+
 ### References
 - Many thanks to Nelson and Junior in this video: https://www.youtube.com/watch?v=Gx4iBLKLVHk&list=PLBvjNj5-9WtGnqj2G4T7uH07-JeRST2b8&index=3. Please give all credits to them.
 - https://learn.microsoft.com/en-us/azure/app-service/tutorial-multi-container-app
 - https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli
+- Greate video on Kubernetes including Ingress of Nana from TechWorld: https://www.youtube.com/watch?v=X48VuDVv0do
 
 ### Differences from the video
 - Used `CrudRepository` instead of `JpaRepository`
