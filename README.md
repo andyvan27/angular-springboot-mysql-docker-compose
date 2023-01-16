@@ -49,16 +49,31 @@ az group create --name <resource group name> --location <region name>
 az aks create -g <resource group name> -n <aks cluster name> --enable-managed-identity --node-count 2  --node-vm-size Standard_B2S --generate-ssh-keys
 az aks get-credentials --resource-group <resource group name> --name <aks cluster name>
 ```
-- `kubectl apply -f emp-app-aks-backend.yml`
-- `kubectl get service backend --watch` and note down the external ip address of the back end
+- Apply backend service 
+```
+kubectl apply -f emp-app-aks-backend.yml
+```
+- Get and note down the external ip address of the back end
+```
+kubectl get service backend --watch
+```
 - Modify `emp-app-aks-frontend.yml` to have the right ip address of the back end (At BACKEND_URL)
-- `kubectl apply -f emp-app-aks-frontend.yml`
+- Apply frontend service
+```
+kubectl apply -f emp-app-aks-frontend.yml
+```
 
-### Deploy to local Kubernetes with ingress-nginx installed
-- `kubectl apply -f emp-app-kube-local-ingress.yml`
+### Deploy to local Kubernetes with ingress-nginx
+- Install ingress-nginx
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
+```
+- Apply services
+```
+kubectl apply -f emp-app-kube-local-ingress.yml
+```
 
 ### Deploy to AKS with ingress-nginx
-### Deploy to AKS
 - Create AKS cluster
 ```
 az login
@@ -69,9 +84,13 @@ az aks create -g <resource group name> -n <aks cluster name> --enable-managed-id
 az aks get-credentials --resource-group <resource group name> --name <aks cluster name>
 ```
 - Install ingress-nginx
-`kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml`
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
+```
 - Apply services
-`kubectl apply -f emp-app-kube-aks-ingress.yml`
+```
+kubectl apply -f emp-app-kube-aks-ingress.yml
+```
 
 ### References
 - Many thanks to Nelson and Junior in this video: https://www.youtube.com/watch?v=Gx4iBLKLVHk&list=PLBvjNj5-9WtGnqj2G4T7uH07-JeRST2b8&index=3. Please give all credits for the sample code to them.
@@ -79,9 +98,9 @@ az aks get-credentials --resource-group <resource group name> --name <aks cluste
 - Aks quick deployment: https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli
 - Greate video on Kubernetes including Ingress of Nana from TechWorld: https://www.youtube.com/watch?v=X48VuDVv0do
 - Aks ingress: 
---https://levelup.gitconnected.com/ingress-nginx-on-azure-kubernetes-service-14e6108373e9
---https://kubernetes.github.io/ingress-nginx/deploy/#azure
---https://learn.microsoft.com/en-us/azure/aks/ingress-basic?tabs=azure-cli
+  - https://levelup.gitconnected.com/ingress-nginx-on-azure-kubernetes-service-14e6108373e9
+  - https://kubernetes.github.io/ingress-nginx/deploy/#azure
+  - https://learn.microsoft.com/en-us/azure/aks/ingress-basic?tabs=azure-cli
 
 
 ### Differences from the video
