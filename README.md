@@ -40,9 +40,15 @@ docker-compose-frontend.yml
 - `kubectl apply -f emp-app-kube.yml`
 
 ### Deploy to AKS
-- Create resource group and AKS cluster
-- Sign in to Azure from command prompt
-- `az aks get-credentials --resource-group <resourceGroupname> --name <AKS cluster name>`
+- Create AKS cluster
+```
+az login
+az account list
+az account set --subscription <subscription id or name>
+az group create --name <resource group name> --location <region name>
+az aks create -g <resource group name> -n <aks cluster name> --enable-managed-identity --node-count 2  --node-vm-size Standard_B2S --generate-ssh-keys
+az aks get-credentials --resource-group <resource group name> --name <aks cluster name>
+```
 - `kubectl apply -f emp-app-aks-backend.yml`
 - `kubectl get service backend --watch` and note down the external ip address of the back end
 - Modify `emp-app-aks-frontend.yml` to have the right ip address of the back end (At BACKEND_URL)
@@ -51,11 +57,32 @@ docker-compose-frontend.yml
 ### Deploy to local Kubernetes with ingress-nginx installed
 - `kubectl apply -f emp-app-kube-local-ingress.yml`
 
+### Deploy to AKS with ingress-nginx
+### Deploy to AKS
+- Create AKS cluster
+```
+az login
+az account list
+az account set --subscription <subscription id or name>
+az group create --name <resource group name> --location <region name>
+az aks create -g <resource group name> -n <aks cluster name> --enable-managed-identity --node-count 2  --node-vm-size Standard_B2S --generate-ssh-keys
+az aks get-credentials --resource-group <resource group name> --name <aks cluster name>
+```
+- Install ingress-nginx
+`kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml`
+- Apply services
+`kubectl apply -f emp-app-kube-aks-ingress.yml`
+
 ### References
-- Many thanks to Nelson and Junior in this video: https://www.youtube.com/watch?v=Gx4iBLKLVHk&list=PLBvjNj5-9WtGnqj2G4T7uH07-JeRST2b8&index=3. Please give all credits to them.
-- https://learn.microsoft.com/en-us/azure/app-service/tutorial-multi-container-app
-- https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli
+- Many thanks to Nelson and Junior in this video: https://www.youtube.com/watch?v=Gx4iBLKLVHk&list=PLBvjNj5-9WtGnqj2G4T7uH07-JeRST2b8&index=3. Please give all credits for the sample code to them.
+- App Service for containers: https://learn.microsoft.com/en-us/azure/app-service/tutorial-multi-container-app
+- Aks quick deployment: https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli
 - Greate video on Kubernetes including Ingress of Nana from TechWorld: https://www.youtube.com/watch?v=X48VuDVv0do
+- Aks ingress: 
+--https://levelup.gitconnected.com/ingress-nginx-on-azure-kubernetes-service-14e6108373e9
+--https://kubernetes.github.io/ingress-nginx/deploy/#azure
+--https://learn.microsoft.com/en-us/azure/aks/ingress-basic?tabs=azure-cli
+
 
 ### Differences from the video
 - Used `CrudRepository` instead of `JpaRepository`

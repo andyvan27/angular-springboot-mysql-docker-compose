@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: service1
+  name: service1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service1
+  template:
+    metadata:
+      labels:
+        app: service1
+    spec:
+      containers:
+      - image: iamnoah4real/saywhat
+        name: say-what
+        env:
+        - name: RESPONSE_MESSAGE
+          value: "hello from service 1"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 60
+          timeoutSeconds: 30
+          failureThreshold: 2
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service1
+spec:
+  selector:
+    app: service1
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: service1-ingress
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /service1
+        pathType: Exact
+        backend:
+          service:
+            name: service1
+            port:
+              number: 80
